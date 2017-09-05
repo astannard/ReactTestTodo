@@ -49,7 +49,7 @@ class App extends Component {
                             this.setState({text:event.target.value})
                             }}/>
                             {' '}
-                        <Button onClick={() => this.addToDo()}>Submit</Button>
+                        <Button className="submit" onClick={() => this.addToDo()}>Add</Button>
                     </Form>
                     <ul>
                             {this.state.notes.map((note, noteIndex) => { 
@@ -60,7 +60,7 @@ class App extends Component {
                             })}
                     </ul>
                     <hr />
-                    <Button onClick={() => this.clearNotes()}>Clear notes</Button> 
+                    <Button className="clear" onClick={() => this.clearNotes()}>Clear notes</Button> 
 
                 </div>
         )
