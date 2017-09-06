@@ -6,8 +6,6 @@ describe('App', () => {
     let app = mount(<App />);
 
     it('renders app title', () => {
-        console.log(app.debug());
-
         expect(app.find('h2').text()).toEqual('Note to self');
     });
 
@@ -28,6 +26,44 @@ describe('App', () => {
             expect(app.find('.btn.submit').exists()).toBe(true);
             expect(app.find('.btn.submit').text()).toEqual('Add');
         })
+    });
+
+    describe('When creating a new note', () => {
+
+        let testNote = 'test note';
+
+        beforeEach(() => {
+            app.find('FormControl').simulate('change', {
+                target: {value: testNote}
+            });
+        });
+
+        it("state text updated when note input typed in", () => {
+            expect(app.state().text).toEqual(testNote);
+        });
+
+        describe('and the new note is submitted', () => {
+            beforeEach(() => {
+                app.find('.submit').simulate('click');
+            })
+
+            it('new note text is added to task list ', () => {
+                expect(app.state().notes[0].text).toEqual(testNote);
+            });
+
+
+            describe('and the clicking clear removes the notes', () => {
+                beforeEach(() => {
+                    app.find('.btn.clear').simulate('click');
+                });
+                
+                it('clicking clear, clears notes', () => {
+                    expect(app.state().notes.length).toEqual(0);
+                });
+                
+            });
+        });
+
     });
 
 });
